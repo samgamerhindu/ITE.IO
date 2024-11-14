@@ -3,106 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TC Bank System</title>
+    <title>Image Download</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            margin: 0;
+            background-color: #ffecd1;
         }
 
         .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 500px;
             text-align: center;
+            background: #fff3e0;
+            border-radius: 12px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 400px;
+            width: 90%;
         }
 
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
+        h1 {
+            color: #ff6f00;
+            margin-bottom: 20px;
         }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
+        .image-container {
+            padding: 10px;
+            background-color: #ffe0b2;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
 
-        th {
-            background-color: #007bff;
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
             color: white;
+            background-color: #ff6f00;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #e65100;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h2>TC Bank System</h2>
-        <table id="accountTable">
-            <tr>
-                <th>Account Holder</th>
-                <th>Account Balance</th>
-            </tr>
-            <tr>
-                <td>sangamesh hiremath</td>
-                <td id="SangameshBalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>SElijah Samuel </td>
-                <td id="SElijahBalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>jasrah ali</td>
-                <td id="jasrahBalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>Sukrut hiremath</td>
-                <td id="SukrutBalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>Maria Angeline</td>
-                <td id="AngelineBalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>hemeshwar</td>
-                <td id="hemeshwarBalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>Sam j</td>
-                <td id="SamBalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>GABI</td>
-                <td id="GABIBalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>ABDULA</td>
-                <td id="ABDULABalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>MOHAMAD</td>
-                <td id="MOHAMADBalance">$25,000</td>
-            </tr>
-            <tr>
-                <td>government account</td>
-                <td id="governmentBalance">$45,000</td>
-            </tr>
-            <tr>
-                <td>vice government account</td>
-                <td id="vice governmentBalance">$35,000</td>
-            </tr>
-        </table>
+        <h1>Download Image</h1>
+        
+        <!-- Image display section -->
+        <div class="image-container">
+            <img src="your-image.jpg" alt="Sample Image">
+        </div>
+        
+        <!-- Download button -->
+        <a href="your-image.jpg" download class="download-btn">Download Image</a>
     </div>
+
 </body>
 </html>
+
 
 
 
