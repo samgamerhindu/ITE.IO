@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot with History</title>
+    <title>AI Chatbot</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,26 +60,6 @@
         button:hover {
             background-color: #0056b3;
         }
-        .actions {
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .history-list {
-            margin-top: 10px;
-            list-style-type: none;
-            padding: 0;
-        }
-        .history-list li {
-            padding: 8px;
-            background: #f4f4f4;
-            margin: 5px 0;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .history-list li:hover {
-            background: #ddd;
-        }
     </style>
 </head>
 <body>
@@ -92,32 +72,26 @@
         <input type="text" id="user-input" placeholder="Type your message here...">
         <button onclick="sendMessage()">Send</button>
     </div>
-    <div class="actions">
-        <button onclick="saveCurrentChat()">Save Current Chat</button>
-        <button onclick="showHistory()">View Previous Chats</button>
-    </div>
-    <ul class="history-list" id="history-list">
-        <!-- Previous chats will be listed here -->
-    </ul>
 </div>
 
 <script>
+    const API_KEY = "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"; // Replace with your OpenAI API key
+    const API_URL = "https://api.openai.com/v1/chat/completions";
+
     const chatBox = document.getElementById("chat-box");
-    const historyList = document.getElementById("history-list");
-    let chatHistory = [];
 
     async function sendMessage() {
         const userInput = document.getElementById("user-input");
         const message = userInput.value.trim();
-
+        
         if (message) {
+            // Display user message
             addMessage("user", message);
-            chatHistory.push({ sender: "user", message: message });
             userInput.value = "";
 
+            // Send message to OpenAI API
             const botResponse = await getBotResponse(message);
             addMessage("bot", botResponse);
-            chatHistory.push({ sender: "bot", message: botResponse });
         }
     }
 
@@ -130,42 +104,37 @@
     }
 
     async function getBotResponse(userMessage) {
-        // Replace with your API call logic
-        return `This is a mock response to "${userMessage}".`; // Mock response for testing
-    }
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: "gpt-4",
+                    messages: [
+                        { role: "system", content: "You are a helpful assistant." },
+                        { role: "user", content: userMessage }
+                    ]
+                })
+            });
 
-    function saveCurrentChat() {
-        const timestamp = new Date().toISOString();
-        localStorage.setItem(timestamp, JSON.stringify(chatHistory));
-        alert("Chat saved!");
-    }
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
 
-    function showHistory() {
-        historyList.innerHTML = ""; // Clear previous list
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            const li = document.createElement("li");
-            li.textContent = `Chat from ${new Date(key).toLocaleString()}`;
-            li.dataset.key = key;
-            li.onclick = () => loadChat(key);
-            historyList.appendChild(li);
-        }
-    }
-
-    function loadChat(key) {
-        const savedChat = localStorage.getItem(key);
-        if (savedChat) {
-            chatHistory = JSON.parse(savedChat);
-            chatBox.innerHTML = ""; // Clear chat box
-            chatHistory.forEach(entry => addMessage(entry.sender, entry.message));
-        } else {
-            alert("Chat not found!");
+            const data = await response.json();
+            return data.choices[0].message.content.trim();
+        } catch (error) {
+            return `Error: ${error.message}`;
         }
     }
 </script>
-<footer>
-        &copy; 2024 sam.ai Chatbot. All Rights Reserved made by sangamesh.
-    </footer>
+
+</body>
+</html>
+
 
 </body>
 </html>
